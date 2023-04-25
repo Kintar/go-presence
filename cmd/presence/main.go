@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"github.com/kintar/go-presence/icons"
 	"math/rand"
+	"os"
 	"time"
 
 	"github.com/getlantern/systray"
@@ -23,7 +25,7 @@ func onReady() {
 	paused = true
 
 	systray.SetTemplateIcon(icons.Waiting, icons.Waiting)
-	systray.SetTitle("Presence Faker")
+	//systray.SetTitle("Presence Faker")
 	systray.SetTooltip("Fakes mouse activity")
 	mPause := systray.AddMenuItemCheckbox("Pause", "Stop moving the mouse", paused)
 	mPause.SetIcon(icons.Pause)
@@ -32,6 +34,8 @@ func onReady() {
 	mQuit.SetIcon(icons.Quit)
 
 	go presenceFunc()
+
+	fmt.Printf("Running : PID %d\n", os.Getpid())
 
 	for {
 		select {
